@@ -1,0 +1,46 @@
+# ASCII Art
+ascii_art="
+
+ 
+
+╭━━━━┳━━━┳━╮╭━┳━━┳━╮╭━╮
+┃╭╮╭╮┃╭━╮┃┃╰╯┃┣┫┣┫┃╰╯┃┃
+╰╯┃┃╰┫┃╱┃┃╭╮╭╮┃┃┃┃╭╮╭╮┃
+╱╱┃┃╱┃╰━╯┃┃┃┃┃┃┃┃┃┃┃┃┃┃
+╱╱┃┃╱┃╭━╮┃┃┃┃┃┣┫┣┫┃┃┃┃┃
+╱╱╰╯╱╰╯╱╰┻╯╰╯╰┻━━┻╯╰╯╰╯
+
+
+"
+
+curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc \
+  | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null \
+  && echo "deb https://ngrok-agent.s3.amazonaws.com bookworm main" \
+  | sudo tee /etc/apt/sources.list.d/ngrok.list \
+  && sudo apt update \
+  && sudo apt install ngrok && ngrok config add-authtoken 2ydA4rZ4zjoGV2Mt9TnmMwtkupp_5fW7zp6M7WWtxdKyWFE8B && ngrok http http://localhost:3001
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+# Clear the screen
+clear
+# Check if the script is run as root
+if [ "$EUID" -ne 0 ]; then
+  echo -e "${RED}Please run this script as root.${NC}"
+  exit 1
+fi
+
+echo -e "${GREEN}$ascii_art${NC}"
+
+
+echo "* Installing Dependencies"
+
+# Update package list and install dependencies
+
+bash <(curl -fsSL https://raw.githubusercontent.com/JishnuTheGamer/Host-Installer/refs/heads/main/Installer.sh)
